@@ -22,6 +22,11 @@ public class TimerPanel extends JPanel {
     private Clip clipRain;
     private int delay = 1000;
 
+    // Center components
+    private int centeredX(int componentWidth) {
+        return (480 - componentWidth) / 2;
+    }
+
     public TimerPanel(int studyPeriods, int studyTime, int breakTime) {
         this.breakTime = breakTime;
         this.studyTime = studyTime;
@@ -33,37 +38,64 @@ public class TimerPanel extends JPanel {
         setBackground(Color.PINK);
         setLayout(null);
         setBounds(0, 0, 480, 720);
-        JTextArea instructions = new JTextArea("Pressing \"Stop Timer\" will reset the session, and any progress from the current period will be lost.");
+
+        // Instructions
+        JTextArea instructions = new JTextArea("Pressing \"Stop\" will reset the session, and any progress from the current period will be lost.");
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
         instructions.setOpaque(false);
-        instructions.setBounds(0, 500, 480, 100);
+        instructions.setForeground(Color.white);
+        instructions.setBounds(centeredX(480), 500, 480, 100);
         instructions.setFont(new Font("Arial", Font.BOLD, 20));
         add(instructions);
+
+        // Amount of study periods
         JLabel amountOfStudyPeriods = new JLabel("Number of Study Periods: " + String.valueOf(studyPeriods));
         amountOfStudyPeriods.setFont(new Font("Arial", Font.BOLD, 20));
-        amountOfStudyPeriods.setBounds(90, 60, 600, 60);
+        amountOfStudyPeriods.setForeground(Color.white);
+        amountOfStudyPeriods.setBounds(centeredX(300), 150, 300, 60);
+        add(amountOfStudyPeriods);
+
+        // Currently studying...
         JLabel studyingLabel = new JLabel("Study Period");
         studyingLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        studyingLabel.setBounds(90, 100, 300, 60);
+        studyingLabel.setForeground(Color.white);
+        studyingLabel.setBounds(centeredX(300), 190, 300, 60);
+        add(studyingLabel);
+        
+        // Currently taking a break...
         JLabel breakingLabel = new JLabel("Break Period");
         breakingLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        breakingLabel.setBounds(90, 100, 300, 60);
+        breakingLabel.setForeground(Color.white);
+        breakingLabel.setBounds(centeredX(300), 190, 300, 60);
+
+        // Timer Text
         JLabel timerLabel = new JLabel(String.valueOf(studyTime / 60 + ":" + "0" + studyTime % 60));
         timerLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        timerLabel.setBounds(80, 300, 320, 80);
-        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        //CHECKBOXES FOR MUSIC
+        timerLabel.setForeground(Color.white);
+        timerLabel.setBounds(175, 300, 320, 80);
+        add(timerLabel);
+        
+        //Checkbox Icons
+        ImageIcon checkboxF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF1.png");
+        ImageIcon checkboxF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF2.png");
+        
         // White Noise Audio
-        JCheckBox whiteNoisCheckBox = new JCheckBox();
-        whiteNoisCheckBox.setText("White Noise");
-        whiteNoisCheckBox.setFocusable(false);
-        whiteNoisCheckBox.setBounds(0, 0, 200, 30);
-        whiteNoisCheckBox.setOpaque(false);
-        add(whiteNoisCheckBox);
-        whiteNoisCheckBox.addActionListener(e -> {
+        JLabel whiteNoiseLabel = new JLabel("White Noise");
+        whiteNoiseLabel.setBounds(60, 0, 200, 60);
+        whiteNoiseLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        whiteNoiseLabel.setForeground(Color.WHITE);
+        add(whiteNoiseLabel);
+        JCheckBox whiteNoiseCheckBox = new JCheckBox();
+        whiteNoiseCheckBox.setIcon(checkboxF1);
+        whiteNoiseCheckBox.setFocusable(false);
+        whiteNoiseCheckBox.setBounds(0, 0, 60, 60);
+        whiteNoiseCheckBox.setOpaque(false);
+        add(whiteNoiseCheckBox);
+        whiteNoiseCheckBox.addActionListener(e -> {
             try {
-                if (whiteNoisCheckBox.isSelected()) {
+                if (whiteNoiseCheckBox.isSelected()) {
+                    whiteNoiseCheckBox.setIcon(checkboxF2);
                     File whiteNoiseFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\white_noise.wav");
                     AudioInputStream audioStreamWhite = AudioSystem.getAudioInputStream(whiteNoiseFile);
                     clipWhite = AudioSystem.getClip();
@@ -73,21 +105,29 @@ public class TimerPanel extends JPanel {
                 } else {
                     if (clipWhite != null && clipWhite.isRunning()) {
                         clipWhite.stop();
+                        whiteNoiseCheckBox.setIcon(checkboxF1);
                     }
                 }
             } catch (Exception exc) {
             }
         });
+
         // Gamma Waves Audio
+        JLabel gammaWavesLabel = new JLabel("Gamma Waves");
+        gammaWavesLabel.setBounds(60, 50, 200, 60);
+        gammaWavesLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        gammaWavesLabel.setForeground(Color.WHITE);
+        add(gammaWavesLabel);
         JCheckBox gammaCheckBox = new JCheckBox();
-        gammaCheckBox.setText("Gamma Waves");
-        gammaCheckBox.setBounds(0, 20, 200, 30);
+        gammaCheckBox.setIcon(checkboxF1);
+        gammaCheckBox.setBounds(0, 50, 60, 60);
         gammaCheckBox.setFocusable(false);
         gammaCheckBox.setOpaque(false);
         add(gammaCheckBox);
         gammaCheckBox.addActionListener(e -> {
             try {
                 if (gammaCheckBox.isSelected()) {
+                    gammaCheckBox.setIcon(checkboxF2);
                     File gammaFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gamma.wav");
                     AudioInputStream audioStreamGamma = AudioSystem.getAudioInputStream(gammaFile);
                     clipGamma = AudioSystem.getClip();
@@ -97,21 +137,29 @@ public class TimerPanel extends JPanel {
                 } else {
                     if (clipGamma != null && clipGamma.isRunning()) {
                         clipGamma.stop();
+                        gammaCheckBox.setIcon(checkboxF1);
                     }
                 }
             } catch (Exception exc) {
             }
         });
+
         // Rain Noise Audio
+        JLabel rainNoiseLabel = new JLabel("Rain Noise");
+        rainNoiseLabel.setBounds(60, 100, 200, 60);
+        rainNoiseLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        rainNoiseLabel.setForeground(Color.WHITE);
+        add(rainNoiseLabel);
         JCheckBox rainCheckBox = new JCheckBox();
-        rainCheckBox.setText("Rain Audio");
-        rainCheckBox.setBounds(0, 40, 200, 30);
+        rainCheckBox.setIcon(checkboxF1);
+        rainCheckBox.setBounds(0, 100, 60, 60);
         rainCheckBox.setFocusable(false);
         rainCheckBox.setOpaque(false);
         add(rainCheckBox);
         rainCheckBox.addActionListener(e -> {
             try {
                 if (rainCheckBox.isSelected()) {
+                    rainCheckBox.setIcon(checkboxF2);
                     File rainFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gammaWithRain.wav");
                     AudioInputStream audioStreamRain = AudioSystem.getAudioInputStream(rainFile);
                     clipRain = AudioSystem.getClip();
@@ -121,11 +169,13 @@ public class TimerPanel extends JPanel {
                 } else {
                     if (clipRain != null && clipRain.isRunning()) {
                         clipRain.stop();
+                        rainCheckBox.setIcon(checkboxF1);
                     }
                 }
             } catch (Exception exc) {
             }
         });
+
         /*
         // Clock ticking
         try {
@@ -138,6 +188,7 @@ public class TimerPanel extends JPanel {
         } catch (Exception exc) {
         }
          */
+
         add(timerLabel);
         add(amountOfStudyPeriods);
         setBackground(new Color(255, 150, 150));
@@ -204,26 +255,43 @@ public class TimerPanel extends JPanel {
         });
         timer.start();
         // When reset timer button is hit:
-        JButton resetButton = new JButton("Stop Timer");
-        resetButton.setBounds(100, 600, 300, 40);
+        ImageIcon resetF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF1.png");
+        ImageIcon resetF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF2.png");
+        JButton resetButton = new JButton(resetF1);
+        resetButton.setBounds(centeredX(110), 600, 110, 70);
+        resetButton.setBorderPainted(false);
+        resetButton.setFocusPainted(false);
+        resetButton.setContentAreaFilled(false);
         add(resetButton);
+
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                timer.stop();
-                if (clipWhite != null && clipWhite.isRunning()) {
-                        clipWhite.stop();
-                }
-                if (clipGamma != null && clipGamma.isRunning()) {
-                        clipGamma.stop();
-                }
-                if (clipRain != null && clipRain.isRunning()) {
-                        clipRain.stop();
-                }
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TimerPanel.this);
-                frame.getContentPane().removeAll();
-                frame.add(new OptionsPanel());
-                frame.revalidate();
-                frame.repaint();
+                resetButton.setIcon(resetF2);
+                javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        resetButton.setIcon(resetF1);
+
+                        timer.stop();
+                        if (clipWhite != null && clipWhite.isRunning()) {
+                            clipWhite.stop();
+                        }
+                        if (clipGamma != null && clipGamma.isRunning()) {
+                            clipGamma.stop();
+                        }
+                        if (clipRain != null && clipRain.isRunning()) {
+                            clipRain.stop();
+                        }
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TimerPanel.this);
+
+                        frame.getContentPane().removeAll();
+                        frame.add(new OptionsPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                        ((javax.swing.Timer) evt.getSource()).stop();
+                    }
+                });
+                t.setRepeats(false);
+                t.start();
             }
         });
     }

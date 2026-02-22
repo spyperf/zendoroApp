@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.*;
 import javax.swing.*;
 
 public class TitlePanel extends JPanel {
@@ -27,7 +26,7 @@ public class TitlePanel extends JPanel {
         // Saving File Locally:
         JLabel minutesStudied = new JLabel();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("output.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\output.txt"));
             String line = reader.readLine();
             reader.close();
             // Checks if line read is null or if its empty
@@ -53,7 +52,8 @@ public class TitlePanel extends JPanel {
         minutesStudied.setForeground(Color.WHITE);
         minutesStudied.setBounds(centeredX(480), 245, 480, 100);
         minutesStudied.setHorizontalAlignment(SwingConstants.CENTER);
-        
+        add(minutesStudied);
+
         // zendoro text
         ImageIcon zendoroText = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\zendoroText.png");
         JLabel titleText = new JLabel(zendoroText);
@@ -71,7 +71,6 @@ public class TitlePanel extends JPanel {
         startButton.setContentAreaFilled(false);
         add(startButton);
 
-        add(minutesStudied);
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 startButton.setIcon(startF2);
