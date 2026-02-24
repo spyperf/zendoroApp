@@ -88,5 +88,30 @@ public class TitlePanel extends JPanel {
                 t.start();
             }
         });
+
+        // Leaderboard Button
+        JButton leaderboardbutton = new JButton("Leaderboard");
+        leaderboardbutton.setBounds(centeredX(110), 500, 110, 70);
+        /*leaderboardbutton.setBorderPainted(false);
+        leaderboardbutton.setFocusPainted(false);
+        leaderboardbutton.setContentAreaFilled(false);*/
+        add(leaderboardbutton);
+
+        leaderboardbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TitlePanel.this);
+                        frame.getContentPane().removeAll();
+                        frame.add(new LeaderboardPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                        ((javax.swing.Timer) evt.getSource()).stop();
+                    }
+                });
+                t.setRepeats(false);
+                t.start();
+            }
+        });
     }
 }
