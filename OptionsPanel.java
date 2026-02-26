@@ -15,7 +15,13 @@ public class OptionsPanel extends JPanel {
         setBackground(Color.PINK);
         setLayout(null);
         setBounds(0, 0, 480, 720);
-
+        // Options Title
+        JLabel optionsText = new JLabel("Options: ");
+        optionsText.setBounds(centeredX(200), 50, 200, 100);
+        optionsText.setHorizontalAlignment(SwingConstants.CENTER);
+        optionsText.setFont(new Font("Arial", Font.BOLD, 30));
+        optionsText.setForeground(Color.white);
+        add(optionsText);
         // 1 to 6 study periods
         JLabel studyPeriodsText = new JLabel("# of Study Periods");
         studyPeriodsText.setBounds(0, 125, 480, 100);
@@ -36,10 +42,11 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
                 // Prevent thumb from copying itself
                 revalidate();
                 repaint();
@@ -69,10 +76,11 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
                 // Prevent thumb from copying itself
                 revalidate();
                 repaint();
@@ -101,10 +109,11 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
                 // Prevent thumb from copying itself
                 revalidate();
                 repaint();

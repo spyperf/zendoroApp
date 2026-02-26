@@ -15,7 +15,7 @@ public class UsernamePanel extends JPanel {
         setLayout(null);
         setBounds(0, 0, 480, 720);
         JLabel usernameLabel = new JLabel("Enter a username (this action is permanent):");
-        usernameLabel.setBounds(centeredX(200), 20, 400, 20);
+        usernameLabel.setBounds(centeredX(200), 20, 200, 20);
         usernameLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
         add(usernameLabel);
         JTextField usernameTextField = new JTextField();
