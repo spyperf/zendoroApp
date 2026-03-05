@@ -22,7 +22,11 @@ public class UsernamePanel extends JPanel {
         usernameTextField.setBounds(centeredX(200), 60, 200, 20);
         add(usernameTextField);
         usernameTextField.addActionListener(e -> {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("username.txt"))) { 
+            // can't allow username that is empty, has a space, or is too long
+            if (usernameTextField.getText().indexOf(" ") >= 0 || usernameTextField.getText().equals("") || usernameTextField.getText().length() > 18) {
+                return;
+            }
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("username.txt"))) {
                 writer.write(usernameTextField.getText());
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(UsernamePanel.this);
                 frame.getContentPane().removeAll();

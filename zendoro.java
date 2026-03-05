@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class zendoro {
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("zendoro");
         frame.setSize(480, 720);
@@ -17,8 +18,7 @@ public class zendoro {
             // Checks if line read is null or if its empty
             if (line != null && !line.isEmpty()) {
                 frame.add(new TitlePanel());
-            }
-            else {
+            } else {
                 frame.add(new UsernamePanel());
             }
         } catch (IOException e) {

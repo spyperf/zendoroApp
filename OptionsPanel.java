@@ -123,8 +123,8 @@ public class OptionsPanel extends JPanel {
         add(timeForBreak);
 
         // Next button
-        ImageIcon nextF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\nextF1.png");
-        ImageIcon nextF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\nextF2.png");
+        ImageIcon nextF1 = new ImageIcon("images/nextF1.png");
+        ImageIcon nextF2 = new ImageIcon("images/nextF2.png");
         JButton nextButton = new JButton(nextF1);
         nextButton.setBounds(centeredX(110) + 100, 550, 110, 70);
         nextButton.setBorderPainted(false);
@@ -154,8 +154,8 @@ public class OptionsPanel extends JPanel {
         });
 
         // Back button
-        ImageIcon backF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF1.png");
-        ImageIcon backF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF2.png");
+        ImageIcon backF1 = new ImageIcon("images/backF1.png");
+        ImageIcon backF2 = new ImageIcon("images/backF2.png");
         JButton backButton = new JButton(backF1);
         backButton.setBounds(centeredX(110) - 100, 550, 110, 70);
         backButton.setBorderPainted(false);

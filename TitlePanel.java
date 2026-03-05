@@ -1,9 +1,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.*;
 
 public class TitlePanel extends JPanel {
@@ -47,8 +45,8 @@ public class TitlePanel extends JPanel {
             e.printStackTrace();
         }
 
-        // zendoro text
-        ImageIcon zendoroText = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\zendoroText.png");
+        // zendoro text (this will be stored in the images folder in the src, so users can be able to see the images)
+        ImageIcon zendoroText = new ImageIcon("images/zendoroText.png");
         JLabel titleText = new JLabel(zendoroText);
         titleText.setBounds(0, 200, 480, 100);
         titleText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -61,7 +59,7 @@ public class TitlePanel extends JPanel {
             String username = usernameReader.readLine();
             if (first != null && username != null && first.trim().equals(username)) {
                 // gold zendoro text (if they're number one)
-                ImageIcon zendoroTextGold = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\zendoroTextGold.png");
+                ImageIcon zendoroTextGold = new ImageIcon("images/zendoroTextGold.png");
                 titleText.setIcon(zendoroTextGold);
                 titleText.revalidate();
                 titleText.repaint();
@@ -70,8 +68,8 @@ public class TitlePanel extends JPanel {
         }
 
         // Start Button
-        ImageIcon startF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\startF1.png");
-        ImageIcon startF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\startF2.png");
+        ImageIcon startF1 = new ImageIcon("images/startF1.png");
+        ImageIcon startF2 = new ImageIcon("images/startF2.png");
         JButton startButton = new JButton(startF1);
         startButton.setBounds(centeredX(110), 400, 110, 70);
         startButton.setBorderPainted(false);
@@ -98,8 +96,8 @@ public class TitlePanel extends JPanel {
         });
 
         // Leaderboard Button
-        ImageIcon rankF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\rankF1.png");
-        ImageIcon rankF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\rankF2.png");
+        ImageIcon rankF1 = new ImageIcon("images/rankF1.png");
+        ImageIcon rankF2 = new ImageIcon("images/rankF2.png");
         JButton leaderboardbutton = new JButton(rankF1);
         leaderboardbutton.setBounds(centeredX(110), 480, 110, 70);
         leaderboardbutton.setBorderPainted(false);

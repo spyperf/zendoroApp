@@ -21,7 +21,7 @@ public class TimerPanel extends JPanel {
     private Clip clipGamma;
     private Clip clipRain;
     private Clip clipAlarm;
-    private int delay = 10;
+    private int delay = 1000;
 
     // Center components
     private int centeredX(int componentWidth) {
@@ -78,8 +78,8 @@ public class TimerPanel extends JPanel {
         add(timerLabel);
 
         //Checkbox Icons
-        ImageIcon checkboxF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF1.png");
-        ImageIcon checkboxF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF2.png");
+        ImageIcon checkboxF1 = new ImageIcon("images/checkboxF1.png");
+        ImageIcon checkboxF2 = new ImageIcon("images/checkboxF2.png");
 
         // White Noise Audio
         JLabel whiteNoiseLabel = new JLabel("White Noise");
@@ -97,7 +97,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (whiteNoiseCheckBox.isSelected()) {
                     whiteNoiseCheckBox.setIcon(checkboxF2);
-                    File whiteNoiseFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\white_noise.wav");
+                    File whiteNoiseFile = new File("audio/white_noise.wav");
                     AudioInputStream audioStreamWhite = AudioSystem.getAudioInputStream(whiteNoiseFile);
                     clipWhite = AudioSystem.getClip();
                     clipWhite.open(audioStreamWhite);
@@ -129,7 +129,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (gammaCheckBox.isSelected()) {
                     gammaCheckBox.setIcon(checkboxF2);
-                    File gammaFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gamma.wav");
+                    File gammaFile = new File("audio/gamma.wav");
                     AudioInputStream audioStreamGamma = AudioSystem.getAudioInputStream(gammaFile);
                     clipGamma = AudioSystem.getClip();
                     clipGamma.open(audioStreamGamma);
@@ -161,7 +161,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (rainCheckBox.isSelected()) {
                     rainCheckBox.setIcon(checkboxF2);
-                    File rainFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gammaWithRain.wav");
+                    File rainFile = new File("audio/gammaWithRain.wav");
                     AudioInputStream audioStreamRain = AudioSystem.getAudioInputStream(rainFile);
                     clipRain = AudioSystem.getClip();
                     clipRain.open(audioStreamRain);
@@ -177,6 +177,7 @@ public class TimerPanel extends JPanel {
             }
         });
 
+        // OLD CODE:
         /*
         // Clock ticking
         try {
@@ -195,8 +196,8 @@ public class TimerPanel extends JPanel {
         add(studyingLabel);
 
         // When reset timer button is hit:
-        ImageIcon resetF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF1.png");
-        ImageIcon resetF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF2.png");
+        ImageIcon resetF1 = new ImageIcon("images/resetF1.png");
+        ImageIcon resetF2 = new ImageIcon("images/resetF2.png");
         JButton resetButton = new JButton(resetF1);
         resetButton.setBounds(centeredX(110), 600, 110, 70);
         resetButton.setBorderPainted(false);
@@ -297,7 +298,7 @@ public class TimerPanel extends JPanel {
                 }
                 // Alarm
                 try {
-                    File alarmFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\alarm.wav");
+                    File alarmFile = new File("audio/alarm.wav");
                     AudioInputStream audioStreamAlarm = AudioSystem.getAudioInputStream(alarmFile);
                     clipAlarm = AudioSystem.getClip();
                     clipAlarm.open(audioStreamAlarm);
@@ -314,8 +315,8 @@ public class TimerPanel extends JPanel {
                     writer.write(String.valueOf(previousMinutes + totalMinutes));
                     writer.close();
                     // Add back button
-                    ImageIcon backF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF1.png");
-                    ImageIcon backF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF2.png");
+                    ImageIcon backF1 = new ImageIcon("images/backF1.png");
+                    ImageIcon backF2 = new ImageIcon("images/backF2.png");
                     JButton backButton = new JButton(backF1);
                     backButton.setBounds(centeredX(110), 600, 110, 70);
                     backButton.setBorderPainted(false);

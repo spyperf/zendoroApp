@@ -148,7 +148,7 @@ public class LeaderboardPanel extends JPanel {
         String ownMinutes = "0";
         for (int i = 0; i < leaderboard.size(); i++) {
             if (leaderboard.get(i)[0].equals(username)) {
-                ownRanking = i+1;
+                ownRanking = i + 1;
                 ownMinutes = leaderboard.get(i)[1];
                 break;
             }
@@ -162,8 +162,8 @@ public class LeaderboardPanel extends JPanel {
         // Leaderboard System Complete
 
         // Back button to go to TitlePanel() (same back button as in OptionsPanel())
-        ImageIcon backF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF1.png");
-        ImageIcon backF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF2.png");
+        ImageIcon backF1 = new ImageIcon("images/backF1.png");
+        ImageIcon backF2 = new ImageIcon("images/backF2.png");
         JButton backButton = new JButton(backF1);
         backButton.setBounds(centeredX(110), 550, 110, 70);
         backButton.setBorderPainted(false);
