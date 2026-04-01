@@ -162,8 +162,8 @@ public class LeaderboardPanel extends JPanel {
         // Leaderboard System Complete
 
         // Back button to go to TitlePanel() (same back button as in OptionsPanel())
-        ImageIcon backF1 = new ImageIcon("images/backF1.png");
-        ImageIcon backF2 = new ImageIcon("images/backF2.png");
+        ImageIcon backF1 = new ImageIcon("src/images/backF1.png");
+        ImageIcon backF2 = new ImageIcon("src/images/backF2.png");
         JButton backButton = new JButton(backF1);
         backButton.setBounds(centeredX(110), 550, 110, 70);
         backButton.setBorderPainted(false);
