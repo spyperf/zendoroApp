@@ -15,16 +15,25 @@ public class OptionsPanel extends JPanel {
         setBackground(Color.PINK);
         setLayout(null);
         setBounds(0, 0, 480, 720);
-
+        // Options Title
+        JLabel optionsText = new JLabel("Options: ");
+        optionsText.setBounds(centeredX(200), 50, 200, 100);
+        optionsText.setHorizontalAlignment(SwingConstants.CENTER);
+        optionsText.setFont(new Font("Arial", Font.BOLD, 30));
+        optionsText.setForeground(Color.white);
+        add(optionsText);
         // 1 to 6 study periods
         JLabel studyPeriodsText = new JLabel("# of Study Periods");
         studyPeriodsText.setBounds(0, 125, 480, 100);
         studyPeriodsText.setHorizontalAlignment(SwingConstants.CENTER);
         studyPeriodsText.setFont(new Font("Arial", Font.BOLD, 20));
+        studyPeriodsText.setForeground(Color.white);
         JSlider amountOfStudyPeriods = new JSlider(1, 6, 4);
         amountOfStudyPeriods.setBounds(90, 200, 300, 50);
         // removes bg
         amountOfStudyPeriods.setOpaque(false);
+        // remove highlight/border
+        amountOfStudyPeriods.setFocusable(false);
         amountOfStudyPeriods.setPaintTicks(true);
         amountOfStudyPeriods.setPaintTrack(true);
         amountOfStudyPeriods.setPaintLabels(true);
@@ -35,10 +44,14 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
+                // Prevent thumb from copying itself
+                revalidate();
+                repaint();
             }
         });
         add(studyPeriodsText);
@@ -49,10 +62,13 @@ public class OptionsPanel extends JPanel {
         timeForStudy.setBounds(0, 260, 480, 100);
         timeForStudy.setHorizontalAlignment(SwingConstants.CENTER);
         timeForStudy.setFont(new Font("Arial", Font.BOLD, 20));
+        timeForStudy.setForeground(Color.white);
         JSlider studyTime = new JSlider(20, 60, 25);
         studyTime.setBounds(90, 335, 300, 50);
         // removes bg
         studyTime.setOpaque(false);
+        // remove highlight/border
+        studyTime.setFocusable(false);
         studyTime.setPaintTicks(true);
         studyTime.setPaintTrack(true);
         studyTime.setPaintLabels(true);
@@ -64,10 +80,14 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
+                // Prevent thumb from copying itself
+                revalidate();
+                repaint();
             }
         });
         add(studyTime);
@@ -78,10 +98,13 @@ public class OptionsPanel extends JPanel {
         timeForBreak.setBounds(0, 395, 480, 100);
         timeForBreak.setHorizontalAlignment(SwingConstants.CENTER);
         timeForBreak.setFont(new Font("Arial", Font.BOLD, 20));
+        timeForBreak.setForeground(Color.white);
         JSlider breakTime = new JSlider(5, 10, 5);
         breakTime.setBounds(90, 470, 300, 50);
         // removes bg
         breakTime.setOpaque(false);
+        // remove highlight/border
+        breakTime.setFocusable(false);
         breakTime.setPaintTicks(true);
         breakTime.setPaintTrack(true);
         breakTime.setPaintLabels(true);
@@ -92,18 +115,22 @@ public class OptionsPanel extends JPanel {
                 // Centering track
                 g.fillRect(trackRect.x, trackRect.y + trackRect.height / 2 - 2, trackRect.width, 4);
             }
+
             public void paintThumb(Graphics g) {
                 g.setColor(Color.white);
                 // Centering thumb
-                g.fillOval(thumbRect.x - 5,thumbRect.y, 20, 20);
+                g.fillOval(thumbRect.x - 5, thumbRect.y, 20, 20);
+                // Prevent thumb from copying itself
+                revalidate();
+                repaint();
             }
         });
         add(breakTime);
         add(timeForBreak);
 
         // Next button
-        ImageIcon nextF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\nextF1.png");
-        ImageIcon nextF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\nextF2.png");
+        ImageIcon nextF1 = new ImageIcon("src/images/nextF1.png");
+        ImageIcon nextF2 = new ImageIcon("src/images/nextF2.png");
         JButton nextButton = new JButton(nextF1);
         nextButton.setBounds(centeredX(110) + 100, 550, 110, 70);
         nextButton.setBorderPainted(false);
@@ -133,8 +160,8 @@ public class OptionsPanel extends JPanel {
         });
 
         // Back button
-        ImageIcon backF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF1.png");
-        ImageIcon backF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\backF2.png");
+        ImageIcon backF1 = new ImageIcon("src/images/backF1.png");
+        ImageIcon backF2 = new ImageIcon("src/images/backF2.png");
         JButton backButton = new JButton(backF1);
         backButton.setBounds(centeredX(110) - 100, 550, 110, 70);
         backButton.setBorderPainted(false);

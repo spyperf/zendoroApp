@@ -20,6 +20,7 @@ public class TimerPanel extends JPanel {
     private Clip clipWhite;
     private Clip clipGamma;
     private Clip clipRain;
+    private Clip clipAlarm;
     private int delay = 1000;
 
     // Center components
@@ -62,7 +63,7 @@ public class TimerPanel extends JPanel {
         studyingLabel.setForeground(Color.white);
         studyingLabel.setBounds(centeredX(300), 190, 300, 60);
         add(studyingLabel);
-        
+
         // Currently taking a break...
         JLabel breakingLabel = new JLabel("Break Period");
         breakingLabel.setFont(new Font("Arial", Font.BOLD, 40));
@@ -75,11 +76,11 @@ public class TimerPanel extends JPanel {
         timerLabel.setForeground(Color.white);
         timerLabel.setBounds(175, 300, 320, 80);
         add(timerLabel);
-        
+
         //Checkbox Icons
-        ImageIcon checkboxF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF1.png");
-        ImageIcon checkboxF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\checkboxF2.png");
-        
+        ImageIcon checkboxF1 = new ImageIcon("src/images/checkboxF1.png");
+        ImageIcon checkboxF2 = new ImageIcon("src/images/checkboxF2.png");
+
         // White Noise Audio
         JLabel whiteNoiseLabel = new JLabel("White Noise");
         whiteNoiseLabel.setBounds(60, 0, 200, 60);
@@ -96,7 +97,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (whiteNoiseCheckBox.isSelected()) {
                     whiteNoiseCheckBox.setIcon(checkboxF2);
-                    File whiteNoiseFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\white_noise.wav");
+                    File whiteNoiseFile = new File("src/audio/white_noise.wav");
                     AudioInputStream audioStreamWhite = AudioSystem.getAudioInputStream(whiteNoiseFile);
                     clipWhite = AudioSystem.getClip();
                     clipWhite.open(audioStreamWhite);
@@ -128,7 +129,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (gammaCheckBox.isSelected()) {
                     gammaCheckBox.setIcon(checkboxF2);
-                    File gammaFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gamma.wav");
+                    File gammaFile = new File("src/audio/gamma.wav");
                     AudioInputStream audioStreamGamma = AudioSystem.getAudioInputStream(gammaFile);
                     clipGamma = AudioSystem.getClip();
                     clipGamma.open(audioStreamGamma);
@@ -160,7 +161,7 @@ public class TimerPanel extends JPanel {
             try {
                 if (rainCheckBox.isSelected()) {
                     rainCheckBox.setIcon(checkboxF2);
-                    File rainFile = new File("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\gammaWithRain.wav");
+                    File rainFile = new File("src/audio/gammaWithRain.wav");
                     AudioInputStream audioStreamRain = AudioSystem.getAudioInputStream(rainFile);
                     clipRain = AudioSystem.getClip();
                     clipRain.open(audioStreamRain);
@@ -176,6 +177,7 @@ public class TimerPanel extends JPanel {
             }
         });
 
+        // OLD CODE:
         /*
         // Clock ticking
         try {
@@ -188,11 +190,50 @@ public class TimerPanel extends JPanel {
         } catch (Exception exc) {
         }
          */
-
         add(timerLabel);
         add(amountOfStudyPeriods);
         setBackground(new Color(255, 150, 150));
         add(studyingLabel);
+
+        // When reset timer button is hit:
+        ImageIcon resetF1 = new ImageIcon("src/images/resetF1.png");
+        ImageIcon resetF2 = new ImageIcon("src/images/resetF2.png");
+        JButton resetButton = new JButton(resetF1);
+        resetButton.setBounds(centeredX(110), 600, 110, 70);
+        resetButton.setBorderPainted(false);
+        resetButton.setFocusPainted(false);
+        resetButton.setContentAreaFilled(false);
+        add(resetButton);
+
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetButton.setIcon(resetF2);
+                javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        resetButton.setIcon(resetF1);
+
+                        timer.stop();
+                        if (clipWhite != null && clipWhite.isRunning()) {
+                            clipWhite.stop();
+                        }
+                        if (clipGamma != null && clipGamma.isRunning()) {
+                            clipGamma.stop();
+                        }
+                        if (clipRain != null && clipRain.isRunning()) {
+                            clipRain.stop();
+                        }
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TimerPanel.this);
+                        frame.getContentPane().removeAll();
+                        frame.add(new OptionsPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                        ((javax.swing.Timer) evt.getSource()).stop();
+                    }
+                });
+                t.setRepeats(false);
+                t.start();
+            }
+        });
         timer = new Timer(delay, e -> {
             // Is currently studying
             if (isStudying == true && this.studyPeriods > 0) {
@@ -232,67 +273,87 @@ public class TimerPanel extends JPanel {
             }
             if (this.studyPeriods <= 0) {
                 timer.stop();
+                // Hide everything once done
+                removeAll();
+                // Session Completed Text
+                JLabel completeLabel = new JLabel("Pomodoro Completed!");
+                completeLabel.setBounds(50, 300, 700, 60);
+                completeLabel.setFont(new Font("Arial", Font.BOLD, 36));
+                completeLabel.setForeground(Color.WHITE);
+                add(completeLabel);
+                JLabel takeBreakLabel = new JLabel("Take a break.");
+                takeBreakLabel.setBounds(centeredX(200), 420, 200, 60);
+                takeBreakLabel.setFont(new Font("Arial", Font.BOLD, 24));
+                takeBreakLabel.setForeground(Color.WHITE);
+                add(takeBreakLabel);
+                // Stop Music
+                if (clipWhite != null && clipWhite.isRunning()) {
+                    clipWhite.stop();
+                }
+                if (clipGamma != null && clipGamma.isRunning()) {
+                    clipGamma.stop();
+                }
+                if (clipRain != null && clipRain.isRunning()) {
+                    clipRain.stop();
+                }
+                // Alarm
+                try {
+                    File alarmFile = new File("src/audio/alarm.wav");
+                    AudioInputStream audioStreamAlarm = AudioSystem.getAudioInputStream(alarmFile);
+                    clipAlarm = AudioSystem.getClip();
+                    clipAlarm.open(audioStreamAlarm);
+                    clipAlarm.start();
+                    clipAlarm.loop(Clip.LOOP_CONTINUOUSLY);
+                } catch (Exception exc) {
+                }
                 // Total minutes studied is saved
                 int totalMinutes = originalStudyTime * originalStudyPeriods / 60;
                 try {
+                    // output.txt is the time NOT submitted to the leaderboard, not the total time studied
                     BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-                    writer.write(previousMinutes + totalMinutes + " minutes studied");
+                    // convert into String
+                    writer.write(String.valueOf(previousMinutes + totalMinutes));
                     writer.close();
+                    // Add back button
+                    ImageIcon backF1 = new ImageIcon("src/images/backF1.png");
+                    ImageIcon backF2 = new ImageIcon("src/images/backF2.png");
+                    JButton backButton = new JButton(backF1);
+                    backButton.setBounds(centeredX(110), 600, 110, 70);
+                    backButton.setBorderPainted(false);
+                    backButton.setFocusPainted(false);
+                    backButton.setContentAreaFilled(false);
+                    add(backButton);
+                    backButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            backButton.setIcon(backF2);
+                            javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    backButton.setIcon(backF1);
+                                    if (clipAlarm != null && clipAlarm.isRunning()) {
+                                        clipAlarm.stop();
+                                    }
+                                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TimerPanel.this);
+                                    frame.getContentPane().removeAll();
+                                    frame.add(new OptionsPanel());
+                                    frame.revalidate();
+                                    frame.repaint();
+                                    ((javax.swing.Timer) evt.getSource()).stop();
+                                }
+                            });
+                            t.setRepeats(false);
+                            t.start();
+                        }
+                    });
                     // variable e is already defined in constructor TimerPanel(int,int,int), so change to "ex"
                 } catch (IOException ex) {
                     // TODO Auto-generated catch block
                     ex.printStackTrace();
                 }
                 setBackground(Color.PINK);
-                timerLabel.setVisible(false);
-                breakingLabel.setVisible(false);
-                studyingLabel.setVisible(false);
-                amountOfStudyPeriods.setVisible(false);
-                instructions.setVisible(false);
                 revalidate();
                 repaint();
             }
         });
         timer.start();
-        // When reset timer button is hit:
-        ImageIcon resetF1 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF1.png");
-        ImageIcon resetF2 = new ImageIcon("C:\\Users\\spype\\OneDrive\\Documents\\ICS4U (AP CS)\\zendoro\\resetF2.png");
-        JButton resetButton = new JButton(resetF1);
-        resetButton.setBounds(centeredX(110), 600, 110, 70);
-        resetButton.setBorderPainted(false);
-        resetButton.setFocusPainted(false);
-        resetButton.setContentAreaFilled(false);
-        add(resetButton);
-
-        resetButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                resetButton.setIcon(resetF2);
-                javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        resetButton.setIcon(resetF1);
-
-                        timer.stop();
-                        if (clipWhite != null && clipWhite.isRunning()) {
-                            clipWhite.stop();
-                        }
-                        if (clipGamma != null && clipGamma.isRunning()) {
-                            clipGamma.stop();
-                        }
-                        if (clipRain != null && clipRain.isRunning()) {
-                            clipRain.stop();
-                        }
-                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(TimerPanel.this);
-
-                        frame.getContentPane().removeAll();
-                        frame.add(new OptionsPanel());
-                        frame.revalidate();
-                        frame.repaint();
-                        ((javax.swing.Timer) evt.getSource()).stop();
-                    }
-                });
-                t.setRepeats(false);
-                t.start();
-            }
-        });
     }
 }
