@@ -20,8 +20,6 @@ public class zendoro {
             // Checks if line read is null or if its empty
             if (line != null && !line.isEmpty()) {
                 frame.add(new TitlePanel());
-            } else {
-                frame.add(new UsernamePanel());
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block

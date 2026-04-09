@@ -27,11 +27,13 @@ public class UsernamePanel extends JPanel {
                 return;
             }
             // check for username duplicates
-            try (BufferedReader reader = new BufferedReader(new FileReader("username.txt"))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader("leaderboard.txt"))) {
                 // going through each line in loop, so initalize line outside of loop
                 String line;
                 while (((line = reader.readLine()) != null)) {
-                    if (line.equals(usernameTextField.getText())) {
+                    String[] parts = line.split(" ");
+                    String leaderboardUsername = parts[0].trim();
+                    if (leaderboardUsername.equals(usernameTextField.getText())) {
                         reader.close();
                         return;
                     }
