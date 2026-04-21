@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+// Inheritance: Creating a subclass of JPanel
 
 public class LeaderboardPanel extends JPanel {
 
@@ -13,8 +14,11 @@ public class LeaderboardPanel extends JPanel {
     }
 
     public LeaderboardPanel() {
+        // Set panel colour to pink
         setBackground(Color.PINK);
+        // No layout
         setLayout(null);
+        // The panel will be at (0,0), with width of 480 and height of 720
         setBounds(0, 0, 480, 720);
 
         // Stores an array of String that contain the username and total minutes studied
@@ -22,6 +26,7 @@ public class LeaderboardPanel extends JPanel {
 
         // Loading existing leaderboard
         try {
+            // Reading from leaderboard.txt
             BufferedReader reader = new BufferedReader(new FileReader("leaderboard.txt"));
             String line = reader.readLine();
             // Checks if line is null or empty
@@ -35,7 +40,7 @@ public class LeaderboardPanel extends JPanel {
             }
             reader.close();
         } catch (IOException ex) {
-            // TODO Auto-generated catch block
+            // Prints Exception
             ex.printStackTrace();
         }
 
@@ -48,6 +53,8 @@ public class LeaderboardPanel extends JPanel {
             username = reader.readLine();
             reader.close();
         } catch (Exception e) {
+            // Prints Exception
+            e.printStackTrace();
         }
 
         // Loading minutes
@@ -58,18 +65,23 @@ public class LeaderboardPanel extends JPanel {
             BufferedReader reader = new BufferedReader(new FileReader("output.txt"));
             String line = reader.readLine();
             if (line != null && !line.isEmpty()) {
+                // This will convert the String to an Integer
                 addMinutes = Integer.parseInt(line);
             }
             reader.close();
-
             // Reset output.txt so minutes aren't added
             try {
+                // Writing data into output.txt
                 BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
                 writer.write("0");
                 writer.close();
             } catch (Exception e) {
+                // Prints Exception
+                e.printStackTrace();
             }
         } catch (Exception e) {
+            // Prints Exception
+            e.printStackTrace();
         }
 
         // Only updates the leaderboard if the user studied
@@ -108,14 +120,19 @@ public class LeaderboardPanel extends JPanel {
             }
             writer.close();
         } catch (Exception e) {
+            // Prints Exception
+            e.printStackTrace();
         }
 
-        // Displaying only Top 10 People on Leaderboard
+        // New JLabel at (60,50) with width 200 and height 60
         JLabel leaderboardTitleLabel = new JLabel("Leaderboard:");
         leaderboardTitleLabel.setBounds(60, 50, 200, 60);
+        // Arial Font, BOLDED Text
         leaderboardTitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        // Text colour is white
         leaderboardTitleLabel.setForeground(Color.WHITE);
         add(leaderboardTitleLabel);
+        // Displaying only Top 10 People on Leaderboard
         for (int i = 0; i < leaderboard.size(); i++) {
             // Returns the username at the 'i'th index of the ArrayList and 0th index of the array
             String user = leaderboard.get(i)[0];
@@ -135,6 +152,8 @@ public class LeaderboardPanel extends JPanel {
                     writer.write(user);
                     writer.close();
                 } catch (Exception e) {
+                    // Prints Exception
+                    e.printStackTrace();
                 }
             }
             //If we did a for loop for leaderboard.size(), it would crash if there were too many people.
@@ -163,27 +182,40 @@ public class LeaderboardPanel extends JPanel {
 
         // Back button to go to TitlePanel() (same back button as in OptionsPanel())
         ImageIcon backF1 = new ImageIcon("src/images/backF1.png");
+        // Button animation 2
         ImageIcon backF2 = new ImageIcon("src/images/backF2.png");
         JButton backButton = new JButton(backF1);
         backButton.setBounds(centeredX(110), 550, 110, 70);
+        // Hides border
         backButton.setBorderPainted(false);
+        // Removes indicator when clicked
         backButton.setFocusPainted(false);
+        // Transparent background
         backButton.setContentAreaFilled(false);
         add(backButton);
 
+        // Interaction with back button
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // set back button to animation 2
                 backButton.setIcon(backF2);
+                // Timer for 150 ms until changes to past panel
                 javax.swing.Timer t = new javax.swing.Timer(150, new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
+                        // Returns the top window
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LeaderboardPanel.this);
+                        // Removes all instances
                         frame.getContentPane().removeAll();
+                        // Title page appears
                         frame.add(new TitlePanel());
+                        // Information is updated
                         frame.revalidate();
                         frame.repaint();
+                        // Stops 150 ms timer action (casting to Timer since getSource() returns an Object)
                         ((javax.swing.Timer) evt.getSource()).stop();
                     }
                 });
+                // Timer will not repeat once it is done
                 t.setRepeats(false);
                 t.start();
             }
